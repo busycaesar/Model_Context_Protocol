@@ -1,0 +1,1 @@
+# Firebase MCP Server

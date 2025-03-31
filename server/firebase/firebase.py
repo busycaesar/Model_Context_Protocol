@@ -23,7 +23,7 @@ class Firebase:
 
         return [doc.to_dict() for doc in documents]
     
-firebase = Firebase("./.env.firebase.json")
+firebase = Firebase("../server/firebase/.env.firebase.json")
 
 @mcp.tool()
 async def fetch_collections():
@@ -31,7 +31,7 @@ async def fetch_collections():
     Fetches all the collections from the firebase.
     """
 
-    return firebase.fetch_collections()
+    return await firebase.fetch_collections()
 
 @mcp.tool()
 async def add_new_document(collection_name, document):
@@ -43,10 +43,10 @@ async def add_new_document(collection_name, document):
         document: The document to add into the collection.
     """
 
-    firebase.add_new_document(collection_name, document)
+    return await firebase.add_new_document(collection_name, document)
 
 @mcp.tool()
-async def get_documents(new_collection_name):
+async def get_documents(collection_name):
     """
     Get all the document from the collection.
 
@@ -54,8 +54,12 @@ async def get_documents(new_collection_name):
         collection_name: Name for the new collection.
     """
 
-    firebase.get_documents(new_collection_name)
+    return await firebase.get_documents(collection_name)
 
 if __name__ == "__main__":
     # Initialize and run the server
     mcp.run(transport='stdio')
+
+# if __name__ == "__main__":
+#     Initialize and run the server
+#     await firebase.get_documents(collection_name)

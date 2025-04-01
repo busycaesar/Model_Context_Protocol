@@ -1,11 +1,11 @@
 # Documentation for presentation
 
 ## MCP Server
-- [Python MCP Server](documentation/python-mcp-server.md)
+- [Python MCP Server](./python-mcp-server.md)
 
 ## MCP Client
-- [Python MCP Client](documentation/python-mcp-client.md)
-- [Copilot MCP Client](documentation/copilot-mcp-client.md)
+- [Python MCP Client](./python-mcp-client.md)
+- [Copilot MCP Client](./copilot-mcp-client.md)
 
 ## Command to start client by passing the server.
 

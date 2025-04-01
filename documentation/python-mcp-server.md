@@ -1,4 +1,4 @@
-Following documentation is taken with the reference of [MCP Website](https://modelcontextprotocol.io/quickstart/server#core-mcp-concepts). The following commands are suitable for Linux/MacOS. Check out the website for the command for Windows Machine.
+The following documentation has been prepared with reference to the [MCP Website](https://modelcontextprotocol.io/quickstart/server#core-mcp-concepts). These instructions are intended for setting up the MCP server on Linux/MacOS. If you're using a Windows machine, please refer to the official website for the appropriate commands.
 
 # Steps to create the MCP server using Python:
 

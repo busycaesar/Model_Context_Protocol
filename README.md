@@ -10,7 +10,7 @@ Code for the presentation, "Discover the power of MCP".
 
 ## MCP Clients
 
-- [Claude](./client/mcp_anthropic.py)
+- [Claude](./client/anthropic/mcp_anthropic.py)
 
 ## MCP Servers
 

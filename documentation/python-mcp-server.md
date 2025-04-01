@@ -29,7 +29,7 @@ python -m venv .venv
 source .venv/bin/activate
 
 # Install dependencies
-uuv add "mcp[cli]" httpx
+uv add "mcp[cli]" httpx
 
 touch [desired server file name]
 ```

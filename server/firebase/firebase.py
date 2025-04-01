@@ -59,7 +59,3 @@ async def get_documents(collection_name):
 if __name__ == "__main__":
     # Initialize and run the server
     mcp.run(transport='stdio')
-
-# if __name__ == "__main__":
-#     Initialize and run the server
-#     await firebase.get_documents(collection_name)

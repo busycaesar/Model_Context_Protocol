@@ -10,11 +10,13 @@ Code for the presentation, "Discover the power of MCP".
 
 ## MCP Clients
 
-- [Claude](./client/mcp_anthropic.py)
+- [Claude](./client/anthropic/client.py)
 
 ## MCP Servers
 
-- [Firebase](./server/firebase/firebase.py)
+- [Firebase](./server/firebase/server.py)
+- [Firebase - Node](./server/firebase-node/src/index.js)
+- [GitHub](./server/github/server.py)
 
 ## Author
 

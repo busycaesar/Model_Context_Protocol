@@ -1,6 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
 from mcp.server.fastmcp import FastMCP
+import os
 
 mcp = FastMCP("firebase")
 
@@ -23,7 +24,12 @@ class Firebase:
 
         return [doc.to_dict() for doc in documents]
     
-firebase = Firebase("../server/firebase/.env.firebase.json")
+ENV_VARS_FILE = os.getenv("ENV_VARS_FILE")
+
+if not ENV_VARS_FILE:
+    raise ValueError("Please set the ENV_VARS_FILE environment variable to the path of your Firebase service account key file.")
+
+firebase = Firebase(ENV_VARS_FILE)
 
 @mcp.tool()
 async def fetch_collections():

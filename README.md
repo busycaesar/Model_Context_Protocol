@@ -6,7 +6,7 @@ Code for the presentation, "Discover the power of MCP".
 
 ## Tech Stack
 
-![Image Alt](https://skillicons.dev/icons?i=py)
+![Image Alt](https://skillicons.dev/icons?i=py,js)
 
 ## MCP Clients
 
@@ -20,4 +20,4 @@ Code for the presentation, "Discover the power of MCP".
 
 ## Author
 
-[Dev Shah](https://github.com/busycaesar)
+[Dev J. Shah](https://github.com/busycaesar)

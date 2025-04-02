@@ -1,0 +1,28 @@
+{
+  "name": "firebase-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "Dev Shah",
+  "type": "module",
+  "bin": {
+    "firebase-node": "./build/index.js"
+  },
+  "scripts": {
+    "build": "tsc && chmod +x build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "build"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.8.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.16",
+    "typescript": "^5.8.2"
+  }
+}

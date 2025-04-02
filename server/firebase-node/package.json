@@ -10,6 +10,7 @@
     "firebase-node": "./build/index.js"
   },
   "scripts": {
+    "start": "npx tsx src/index.ts",
     "build": "tsc && chmod +x build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,10 +20,13 @@
   "license": "ISC",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.8.0",
+    "firebase-admin": "^13.2.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@types/node": "^22.13.16",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   }
 }

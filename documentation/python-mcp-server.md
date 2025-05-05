@@ -5,7 +5,6 @@ The following documentation has been prepared with reference to the [MCP Website
 ## System Requirements
 
 - `>= Python 3.10`
-- `>= Python MCP SDK 1.2.0`
 
 ## Setup the environment
 
@@ -25,11 +24,13 @@ uv init [desired server name]
 cd [desired server name]
 
 # Create the virtual environment and activate it.
-python -m venv .venv
+uv venv
 source .venv/bin/activate
 
 # Install dependencies
-uv add "mcp[cli]" httpx
+uv add "mcp[cli]"
+uv pip install python-dotenv
+uv add PyGithub
 
 touch [desired server file name]
 ```

@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "github-mcp-server": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["/home/busycaesar/projects/personal/mcp/temp/server.py"],
+      "envFile": "/home/busycaesar/projects/personal/mcp/temp/.env"
+    }
+  }
+}

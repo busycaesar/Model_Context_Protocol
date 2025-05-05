@@ -8,15 +8,9 @@ Code for the presentation, "Discover the power of MCP".
 
 ![Image Alt](https://skillicons.dev/icons?i=py,js)
 
-## MCP Clients
+## Presentations
 
-- [Claude](./client/anthropic/client.py)
-
-## MCP Servers
-
-- [Firebase](./server/firebase/server.py)
-- [Firebase - Node](./server/firebase-node/src/index.js)
-- [GitHub](./server/github/server.py)
+- [GitHub MCP Server with VS Code copilot](./github)
 
 ## Author
 

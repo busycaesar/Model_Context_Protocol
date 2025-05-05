@@ -10,7 +10,18 @@ Code for the presentation, "Discover the power of MCP".
 
 ## Presentations
 
+### Global Azure Bootcamp - Toronto
+- [Presentation](./presentations/Microsoft.pptx)
+- [Event Details](https://developer.microsoft.com/en-us/reactor/events/25513)
+
+### Tech Talk (In-Person) - May 2025
+- [Event Details](https://guild.host/events/tech-talk-inperson-may-6f48pj)
+
+## Topics
+
 - [GitHub MCP Server with VS Code copilot](./github)
+- [Firebase MCP Server](./firebase)
+- [Firebase MCP Server using JS](./firebase-node)
 
 ## Author
 

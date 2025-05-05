@@ -1,0 +1,219 @@
+# GitHub MCP Server with VS Code copilot integration
+
+The following documentation has been prepared with reference to the [MCP Website](https://modelcontextprotocol.io/quickstart/server#core-mcp-concepts). These instructions are intended for setting up the MCP server on Linux/MacOS. If you are using a Windows machine, please refer to the official website for the appropriate commands.
+
+## Steps to create the MCP server using Python:
+
+### System Requirements
+
+- `>= Python 3.10`
+
+### Setup the environment
+
+- Install `uv` using the following script.
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+- Restart the terminal to ensure that the `uv` commands gets picked up.
+
+### Create the MCP Server
+
+- Create the setup for the project.
+
+```bash
+# Create the directory for the MCP server.
+uv init [desired server name]
+cd [desired server name]
+
+# Create the virtual environment and activate it.
+uv venv
+source .venv/bin/activate
+
+# Install dependencies
+uv add "mcp[cli]"
+uv pip install python-dotenv
+uv add PyGithub
+```
+
+### Create GitHub MCP Server
+
+- Create `server.py`
+
+```py
+import os
+from mcp.server.fastmcp import FastMCP
+from github import Github
+from dotenv import load_dotenv
+
+load_dotenv()
+
+mcp = FastMCP("github")
+
+class GitHub:
+    def __init__(self, access_token):
+        self.github = Github(access_token)
+        self.user = self.github.get_user()
+        self.username = self.user.login
+
+    def _get_repository(self, repo_name):
+        try:
+            return self.github.get_repo(f"{self.username}/{repo_name}")
+        except Exception as e:
+            raise ValueError(f"Failed to get repository: {e}")
+
+    def list_branches(self, repo_name):
+        repo = self._get_repository(repo_name)
+
+        try:
+            branches = repo.get_branches()
+            return [branch.name for branch in branches]
+        except Exception as e:
+            raise ValueError(f"Failed to list branches: {e}")
+
+    def create_branch(self, repo_name, base_branch, new_branch_name):
+        repo = self._get_repository(repo_name)
+
+        try:
+            base_commit = repo.get_branch(base_branch).commit
+            repo.create_git_ref(
+                ref=f"refs/heads/{new_branch_name}",
+                sha=base_commit.sha
+            )
+        except Exception as e:
+            raise ValueError(f"Failed to create the new branch: {e}")
+
+    def delete_branch(self, repo_name, branch_name):
+        repo = self._get_repository(repo_name)
+        
+        try:
+            ref = repo.get_git_ref(f"heads/{branch_name}")
+
+            ref.delete()
+        except Exception as e:
+            raise ValueError(f"Failed to delete the branch: ${e}")
+
+    def create_issue(self, repo_name, issue_title, issue_description):
+        repo = self._get_repository(repo_name)
+
+        try:
+            repo.create_issue(
+                title=issue_title,
+                body=issue_description
+            )
+        except Exception as e:
+            raise ValueError(f"Failed to delete the branch: ${e}")
+
+GH_ACCESS_TOKEN = os.getenv("GH_TOKEN")
+
+if not GH_ACCESS_TOKEN:
+    raise ValueError("Please set the GH_ACCESS_TOKEN environment variable to github's access token.")
+
+github = GitHub(GH_ACCESS_TOKEN)
+    
+@mcp.tool()
+def list_branches(repo_name):
+    """
+    List all the branches in the repository.
+    
+    Args:
+        repo_name: The desired name of the new repositry.
+    """
+    try:
+        return github.list_branches(repo_name)
+    except Exception as e:
+        raise ValueError(e)
+
+@mcp.tool()
+def create_branch(repo_name, base_branch, new_branch_name):
+    """
+    Create a new branch in the existing github repo.
+    
+    Args:
+        repo_name: Name of the existing repo in which the branch is to be created.
+        base_branch: The branch from which the new branch is to be created.
+        new_branch_name: The desired name for the new branch.
+    """
+    try:
+        github.create_branch(repo_name, base_branch, new_branch_name)
+
+        return f"Branch '{new_branch_name}' created successfully."
+    except Exception as e:
+        raise ValueError(e)
+
+@mcp.tool()
+def delete_branch(repo_name, branch_name):
+    """
+    Delete an existing branch from the existing github repository.
+    
+    Args:
+        repo_name: The name of the existing github repository. 
+        branch_name: The name of the existing branch to be deleted.
+    """
+    try:
+        github.delete_branch(repo_name, branch_name)
+
+        return f"Branch '{branch_name}' deleted successfully."
+    except Exception as e:
+        raise ValueError(e)
+
+@mcp.tool()
+def create_issue(repo_name, issue_title, issue_description):
+    """
+    Create a new issue in the github repository.
+    
+    Args:
+        repo_name: Name of the existing github repository.
+        issue_title: Title for the new issue.
+        issue_description: Description for the new issue.
+    """
+    try:
+        github.create_issue(repo_name, issue_title, issue_description)
+
+        return f"Issue '{issue_title}' created successfully."
+    except Exception as e:
+        raise ValueError(e)
+
+if __name__ == "__main__":
+    # Initialize and run the server.
+    mcp.run(transport='stdio')
+```
+
+- Create `.env` to store GitHub authorization token.
+
+```.env
+GH_TOKEN=<GH_TOKEN>
+```
+
+### Setup VS Code to use MCP Server
+
+- Create `.vscode/mcp.json`
+
+```json
+{
+  "servers": {
+    "github-mcp-server": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["/home/busycaesar/projects/personal/mcp/temp/server.py"],
+      "envFile": "/home/busycaesar/projects/personal/mcp/temp/.env"
+    }
+  }
+}
+```
+
+### Start the MCP Server
+
+- Open the command pallet and using the following command.
+
+```
+>MCP:List Servers
+```
+
+- From the list of servers, click `github-mcp-server` and then click `Start Server`.
+
+### Start copilot
+
+- Start a new copilot chat, click `Add Content` button and include the Tool/s as required.
+- Finally, write the prompt to use the tool.

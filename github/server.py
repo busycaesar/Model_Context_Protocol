@@ -1,6 +1,9 @@
 import os
 from mcp.server.fastmcp import FastMCP
 from github import Github
+from dotenv import load_dotenv
+
+load_dotenv()
 
 mcp = FastMCP("github")
 
@@ -9,20 +12,6 @@ class GitHub:
         self.github = Github(access_token)
         self.user = self.github.get_user()
         self.username = self.user.login
-        
-    def create_new_repo(self, name, description = "", private = False):
-        try:
-            repo = self.user.create_repo(
-                name=name,
-                description=description,
-                private=private
-            )
-
-            readme_content = f"# {name}"
-
-            repo.create_file("README.md", "Add README.md", readme_content)
-        except Exception as e:
-            raise ValueError(f"Failed to create repository: {e}")
 
     def _get_repository(self, repo_name):
         try:
@@ -72,27 +61,12 @@ class GitHub:
         except Exception as e:
             raise ValueError(f"Failed to delete the branch: ${e}")
 
-GH_ACCESS_TOKEN = os.getenv("GH_ACCESS_TOKEN")
+GH_ACCESS_TOKEN = os.getenv("GH_TOKEN")
 
 if not GH_ACCESS_TOKEN:
     raise ValueError("Please set the GH_ACCESS_TOKEN environment variable to github's access token.")
 
 github = GitHub(GH_ACCESS_TOKEN)
-
-@mcp.tool()
-def create_new_repo(name, description, private):
-    """
-    Create a new repository on the GitHub.
-
-    Args:
-        name: The name of the new github repo to be created.
-        description: The description for the github repo.
-        private: A bool value to indicate if the repo should be private or public.
-    """
-    try:
-        github.create_new_repo(name, description, private)
-    except Exception as e:
-        raise ValueError(e)
     
 @mcp.tool()
 def list_branches(repo_name):
@@ -103,7 +77,7 @@ def list_branches(repo_name):
         repo_name: The desired name of the new repositry.
     """
     try:
-        github.list_branches(repo_name)
+        return github.list_branches(repo_name)
     except Exception as e:
         raise ValueError(e)
 
@@ -119,6 +93,8 @@ def create_branch(repo_name, base_branch, new_branch_name):
     """
     try:
         github.create_branch(repo_name, base_branch, new_branch_name)
+
+        return f"Branch '{new_branch_name}' created successfully."
     except Exception as e:
         raise ValueError(e)
 
@@ -133,6 +109,8 @@ def delete_branch(repo_name, branch_name):
     """
     try:
         github.delete_branch(repo_name, branch_name)
+
+        return f"Branch '{branch_name}' deleted successfully."
     except Exception as e:
         raise ValueError(e)
 
@@ -148,6 +126,8 @@ def create_issue(repo_name, issue_title, issue_description):
     """
     try:
         github.create_issue(repo_name, issue_title, issue_description)
+
+        return f"Issue '{issue_title}' created successfully."
     except Exception as e:
         raise ValueError(e)
 

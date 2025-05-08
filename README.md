@@ -11,7 +11,7 @@ Code for the presentation, "Discover the power of MCP".
 ## Presentations
 
 ### Global Azure Bootcamp - Toronto
-- [Presentation](./presentations/Microsoft.pptx)
+- [Presentation](https://1drv.ms/p/c/76dcfc18af391fdd/ET2sVpwa9_ZGpsvOdOd2KYQBPIh4p8EK-LpWYiH9edWJFw?e=NJLeqC)
 - [Event Details](https://developer.microsoft.com/en-us/reactor/events/25513)
 
 ### Tech Talk (In-Person) - May 2025

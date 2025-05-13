@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "node-firebase": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "/home/busycaesar/projects/personal/mcp/firebase-node/build/index.js"
+      ],
+      "envFile": "/home/busycaesar/projects/personal/mcp/firebase-node/.env"
+    }
+  }
+}

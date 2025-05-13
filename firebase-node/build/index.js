@@ -22,7 +22,7 @@ class Firebase {
     addNewDocument = async (collectionName, document) => {
         try {
             const _document = await this.db.collection(collectionName).doc();
-            _document.set(document);
+            return _document.set(document);
         }
         catch (error) {
             throw error;

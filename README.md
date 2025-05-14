@@ -31,11 +31,11 @@ Code for the presentation.
   - [Presentation Slides](https://1drv.ms/p/c/76dcfc18af391fdd/ETXZK8PPZblLlso-7EazEtMBlhOid3-d5hCvUvlgblcVyg?e=4cVO4Y)
   - [Code annd Documentation](./firebase-node)
 
-## Topics
+## References & Learning Materials
 
-- [GitHub MCP Server with VS Code copilot](./github)
-- [Firebase MCP Server using JS](./firebase-node)
-- [Firebase MCP Server](./firebase)
+These are the resources I used to understand and explore the concepts of MCP.
+
+- [Blog by Anthropic](https://www.anthropic.com/news/model-context-protocol)
 
 ## Author & Speaker
 

@@ -24,6 +24,6 @@ Code for the presentation, "Discover the power of MCP".
 - [Firebase MCP Server using JS](./firebase-node)
 - [Firebase MCP Server](./firebase)
 
-## Author
+## Author & Speaker
 
 [Dev J. Shah](https://github.com/busycaesar)

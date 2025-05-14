@@ -54,31 +54,44 @@ touch src/index.ts
 - Add the code in `src/index.ts` file.
 
 ```ts
+// Import required functions from the MCP sdk.
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { z } from "zod";
+
+// Import the admin from firebase-admin to manage the database.
 import admin from "firebase-admin";
 
+// Import zod for desclaring the schema type and validating the data.
+import { z } from "zod";
+
+// Firebase class to encapsulate all the functions related to firebase.
 class Firebase {
+  // Instance of the firebase DB.
   private db: FirebaseFirestore.Firestore;
 
+  // Receives the absolute path where the json file with credentails for the firebase account is stored.
   constructor(serviceAccountKeyFile: string) {
+    // Initialize the firebase application using the credentials.
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccountKeyFile),
     });
 
+    // Pass the instance of the firesotre to the class variable.
     this.db = admin.firestore();
   }
 
+  // Function to fetch all the collections from the firebase.
   fetchCollection = async () => {
     try {
       const collections = await this.db.listCollections();
+
       return collections.map((collection) => collection.id);
     } catch (error) {
       throw error;
     }
   };
 
+  // Function to add a new document in a new or existing collection.
   addNewDocument = async (collectionName: string, document: any) => {
     try {
       const _document = await this.db.collection(collectionName).doc();
@@ -89,6 +102,7 @@ class Firebase {
     }
   };
 
+  // Get all the documents from a specific collection.
   getDocuments = async (collectionName: string) => {
     const documents = await this.db.collection(collectionName).get();
 
@@ -102,22 +116,50 @@ class Firebase {
   };
 }
 
-const serviceAccountKeyFile = process.env.SERVICE_ACCOUNT_KEY_FILE;
+// Initialize a new instance of the class that we created by passing the absolute path where the credentails for the firebase is stored.
+const firebase = new Firebase(
+  "/home/busycaesar/projects/personal/mcp/firebase-node/firebase-admin-cred.json"
+);
 
-if (!serviceAccountKeyFile)
-  throw new Error("SERVICE_ACCOUNT_KEY_FILE path not provided.");
-
-const firebase = new Firebase(serviceAccountKeyFile);
-
-// Create server instance
+// Create a new MCP server instance
 const server = new McpServer({
   name: "firebase",
   version: "1.0.0",
+  // Includes the resources and tools provided by the MCP server.
   capabilities: {
+    // Data elements that the MCP server exposes to the clients like File content, DB record etc.
     resources: {},
+    // Executable functions that the MCP server exposes, allowing the clients and LLMs to perform action.
     tools: {},
   },
 });
+
+// Creating a new tool for the MCP server.
+server.tool(
+  // Name of the tool.
+  "add-new-document",
+  // Description of the tool.
+  "Add new document into the existing or new collection. If the collection does not exists, the function creates it automatically.",
+  // Required arguments for executing the function.
+  // These arguments are figured out by the LLM from the user's prompt.
+  // If the required data is not present, the LLM prompts the user to enter the data.
+  { collectionName: z.string(), document: z.any() },
+  // Logic that the tool performs when called.
+  async ({ collectionName, document }) => {
+    // Call the fucntion, add new document from the firebase class, along with passing the collection name and document.
+    await firebase.addNewDocument(collectionName, document);
+    // Return the content with its type and data.
+    // Standardize response format.
+    return {
+      content: [
+        {
+          type: "text",
+          text: `The new document is added to the collection ${collectionName}`,
+        },
+      ],
+    };
+  }
+);
 
 server.tool(
   "fetch-collections",
@@ -126,23 +168,6 @@ server.tool(
     const collections = await firebase.fetchCollection();
     return {
       content: [{ type: "text", text: JSON.stringify(collections) }],
-    };
-  }
-);
-
-server.tool(
-  "add-new-document",
-  "Add new document into the existing or new collection. If the collection does not exists, the function creates it automatically.",
-  { collectionName: z.string(), document: z.any() },
-  async ({ collectionName, document }) => {
-    await firebase.addNewDocument(collectionName, document);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `The new document is added to the collection ${collectionName}`,
-        },
-      ],
     };
   }
 );
@@ -159,29 +184,36 @@ server.tool(
   }
 );
 
+// Main function to start the server.
 const main = async () => {
+  // Initiating the transportation method for the connection between the MCP server and the client.
+  // In this case, we will be usign stdio since both our MCP server and the client will be running on the same local machine.
   const transport = new StdioServerTransport();
 
+  // Calling the connect method of the server class by passing the prefered transportation method.
   await server.connect(transport);
 };
 
+// Executing the main method along with error handling.
 main().catch((error) => {
   console.log("Error while running the main function.", error);
   process.exit(1);
 });
 ```
 
-- Run `npm run build` to create the build version.
-
 - Get the Private Key from the [Firebase console](https://console.firebase.google.com/u/0/project/mcp-server-8facf/settings/serviceaccounts/adminsdk).
 
 - Store the json file at any specific location.
 
-- Create `.env` file and add the following.
+- Update the absolute location of the json file in the code when declaring the firebase instance.
 
-```.env
-SERVICE_ACCOUNT_KEY_FILE='Absolute location to the downloaded json file from Firebase'
+```ts
+const firebase = new Firebase(
+  "absolute/location/of/json/file"
+);
 ```
+
+- Run `npm run build` to create the build version.
 
 ## Add and start the MCP server through VS Code.
 

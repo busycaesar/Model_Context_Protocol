@@ -21,8 +21,8 @@ Code for the presentation, "Discover the power of MCP".
 ## Topics
 
 - [GitHub MCP Server with VS Code copilot](./github)
-- [Firebase MCP Server](./firebase)
 - [Firebase MCP Server using JS](./firebase-node)
+- [Firebase MCP Server](./firebase)
 
 ## Author
 

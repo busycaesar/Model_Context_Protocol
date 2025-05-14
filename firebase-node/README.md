@@ -241,8 +241,7 @@ const firebase = new Firebase(
       "command": "node",
       "args": [
         "path to MCP server file"
-      ],
-      "envFile": "path to the env file."
+      ]
     }
   }
 }

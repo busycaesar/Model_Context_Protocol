@@ -19,7 +19,7 @@ Code for the presentation.
   - [Presentation Slides](https://1drv.ms/p/c/76dcfc18af391fdd/ET2sVpwa9_ZGpsvOdOd2KYQBPIh4p8EK-LpWYiH9edWJFw?e=NJLeqC)
   - [Code and Documentation](./github)
 - After Event Photos
-  - [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7327159234872184832)
+  - [LinkedIn](https://www.linkedin.com/posts/busycaesar_globalazure-azurebootcamp-githubcopilot-activity-7327159234872184832-22HE)
   - [X](https://x.com/busycaesar/status/1921395346686538187)
 
 ### Tech Talk (In-Person) - May 2025
@@ -30,6 +30,9 @@ Code for the presentation.
 - Presentation Details
   - [Presentation Slides](https://1drv.ms/p/c/76dcfc18af391fdd/ETXZK8PPZblLlso-7EazEtMBlhOid3-d5hCvUvlgblcVyg?e=4cVO4Y)
   - [Code annd Documentation](./firebase-node)
+- After Event Photos
+  - [LinkedIn](https://www.linkedin.com/posts/busycaesar_torontojs-techtalk-ai-activity-7329180516807491584-BUMw)
+  - [X](https://x.com/busycaesar/status/1923416635483869532)
 
 ## References & Learning Materials
 

@@ -29,7 +29,7 @@ Code for the presentation.
   - [Event Details Page](https://guild.host/events/tech-talk-inperson-may-6f48pj)
 - Presentation Details
   - [Presentation Slides](https://1drv.ms/p/c/76dcfc18af391fdd/ETXZK8PPZblLlso-7EazEtMBlhOid3-d5hCvUvlgblcVyg?e=4cVO4Y)
-  - [Code annd Documentation](./firebase-node)
+  - [Code and Documentation](./firebase-node)
 - After Event Photos
   - [LinkedIn](https://www.linkedin.com/posts/busycaesar_torontojs-techtalk-ai-activity-7329180516807491584-BUMw)
   - [X](https://x.com/busycaesar/status/1923416635483869532)
